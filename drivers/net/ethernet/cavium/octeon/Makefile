@@ -2,6 +2,8 @@
 # Makefile for the Cavium network device drivers.
 #
 
+ccflags-y += -Wno-error
+
 obj-$(CONFIG_OCTEON_BGX_PORT)		+= octeon-bgx-port.o
 obj-$(CONFIG_OCTEON_BGX_NEXUS)		+= octeon-bgx-nexus.o
 obj-$(CONFIG_OCTEON_COMMON_NEXUS)	+= octeon-common-nexus.o
