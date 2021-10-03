@@ -42,7 +42,7 @@ pipeline {
         stage('Archive kernel image') {
             steps {
                 sh 'mv -v vmlinux vmlinux.64'
-                sh 'tar cvjf e300-kernel.tar.bz2 vmlinux.64'
+                sh 'tar --owner=root --group=root -cvjf e300-kernel.tar.bz2 vmlinux.64'
                 archiveArtifacts artifacts: 'e300-kernel.tar.bz2', fingerprint: true, onlyIfSuccessful: true
             }
         }
@@ -50,7 +50,7 @@ pipeline {
         stage('Archive kernel modules') {
             steps {
                 sh 'make ARCH=mips CROSS_COMPILE=mips64-octeon-linux- INSTALL_MOD_PATH=destdir modules_install'
-                sh 'tar cvjf e300-modules.tar.bz2 -C destdir .'
+                sh 'tar --owner=root --group=root -cvjf e300-modules.tar.bz2 -C destdir .'
                 archiveArtifacts artifacts: 'e300-modules.tar.bz2', fingerprint: true, onlyIfSuccessful: true
             }
         }
