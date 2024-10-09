@@ -13,6 +13,9 @@ pipeline {
 
         stage('Install dependencies') {
             steps {
+                sh 'echo "deb http://archive.debian.org/debian/ stretch main contrib non-free" > /etc/apt/sources.list'
+                sh 'echo "deb http://archive.debian.org/debian/ stretch-proposed-updates main contrib non-free" >> /etc/apt/sources.list'
+                sh 'echo "deb http://archive.debian.org/debian-security stretch/updates main contrib non-free" >> /etc/apt/sources.list'
                 sh 'su-exec root apt-get update'
                 sh 'su-exec root apt-get -y install bc bison flex'
             }
