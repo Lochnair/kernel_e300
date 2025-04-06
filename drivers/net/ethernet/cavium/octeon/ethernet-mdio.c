@@ -563,7 +563,7 @@ void cvm_oct_setup_ether(struct net_device *dev)
 	sscanf(dev->name, "eth%d", &idx);
 	if (idx < 0 || idx > 8)
 		return;
-	vlan_2_netdev[idx] = dev;
+	vlan_2_netdev[idx] = dev->phydev;
 }
 EXPORT_SYMBOL(cvm_oct_setup_ether);
 
@@ -581,10 +581,10 @@ struct net_device * cvm_oct_get_vlan_netdev(u16 vid)
 		return NULL;
 
 	idx = vid - base_vid;
-	if (vlan_dev_priv(vlan_2_netdev[idx])->vlan_id != vid)
+	if (vlan_dev_priv(vlan_2_netdev[idx]->attached_dev)->vlan_id != vid)
 		return NULL;
 
-	return vlan_2_netdev[idx];
+	return vlan_2_netdev[idx]->attached_dev;
 }
 EXPORT_SYMBOL(cvm_oct_get_vlan_netdev);
 #endif /* CONFIG_UBNT_E300 */
